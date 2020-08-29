@@ -1,18 +1,22 @@
 package com.example.cheryflix;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieItemClickListener {
 
     List<Slide> lstSlides;
     List<Movie> lstMovie;
@@ -50,16 +54,34 @@ public class MainActivity extends AppCompatActivity {
 
         //Настройка RecyclerView Movies и данных для него
         lstMovie = new ArrayList<>();
-        lstMovie.add(new Movie("Arch of Triumph",R.drawable.moviearch));
-        lstMovie.add(new Movie("Up",R.drawable.movieup));
-        lstMovie.add(new Movie("Shawshank Redemption",R.drawable.movieshawshank));
-        lstMovie.add(new Movie("Yesman",R.drawable.movieyesman));
+        lstMovie.add(new Movie("Arch of Triumph", R.drawable.moviearch));
+        lstMovie.add(new Movie("Up", R.drawable.movieup));
+        lstMovie.add(new Movie("Shawshank Redemption", R.drawable.movieshawshank));
+        lstMovie.add(new Movie("Yesman", R.drawable.movieyesman));
 
-        MovieAdapter movieAdapter = new MovieAdapter(this, lstMovie);
+        MovieAdapter movieAdapter = new MovieAdapter(this, lstMovie, this);
         rvMovie.setAdapter(movieAdapter);
         rvMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
+    }
+
+    @Override
+    public void onMovieClick(Movie movie, ImageView movieImageView) {
+        //передаем информацию на Detail активити
+        //+ используем анимацию перехода (окно открывается вверх), вместо перехода слайдом
+
+        Intent detailActivityIntent = new Intent(this, MovieDetailActivity.class);
+        detailActivityIntent.putExtra("title", movie.getTitle());
+        detailActivityIntent.putExtra("imgUrl", movie.getThumbnail());
+
+        Toast.makeText(this, "click performed", Toast.LENGTH_SHORT).show();
+
+
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                MainActivity.this, movieImageView, "sharedName");
+
+        startActivity(detailActivityIntent, options.toBundle());
     }
 
     class SliderTimer extends TimerTask {

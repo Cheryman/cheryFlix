@@ -16,13 +16,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     private Context mContext;
     private List<Movie> mData;
+    MovieItemClickListener movieItemClickListener;
 
     // 1 создали конструктор параметров
-    public MovieAdapter(Context mContext, List<Movie> mData) {
+    // после добавления интерфейса - обновили конструктор
+    public MovieAdapter(Context mContext, List<Movie> mData, MovieItemClickListener listener) {
         this.mContext = mContext;
         this.mData = mData;
+        this.movieItemClickListener = listener;
     }
-
 
     // 3 настраиваем какую View инфлэйтить (movie_item)
     @NonNull
@@ -48,7 +50,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     }
 
     // 4 настраиваем какие данные помещать во ViewHolder из movie_item лэйаута
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    // затем припилили каждому будушему элементу MovieItemClickListener
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle;
         private ImageView imgMovie;
@@ -59,8 +62,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
             tvTitle = itemView.findViewById(R.id.item_movie_title);
             imgMovie = itemView.findViewById(R.id.item_movie_img);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    movieItemClickListener.onMovieClick(mData.get(getAdapterPosition()), imgMovie);
+
+                }
+            });
         }
     }
-
-
 }
+
