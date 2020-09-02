@@ -32,16 +32,29 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     private TabLayout indicator;
     private RecyclerView rvMovie;
 
+    private SliderPagerAdapter sliderAdapter;
+    private MovieAdapter movieAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        iniViews();
+
+        setupSlider();
+
+        setupRvMovie();
+    }
+
+    private void iniViews() {
         sliderPager = findViewById(R.id.slider_pager);
         indicator = findViewById(R.id.indicator);
         rvMovie = findViewById(R.id.rv_movies);
+    }
 
+    private void setupSlider() {
         // данные для слайдера
         lstSlides = new ArrayList<>();
         lstSlides.add(new Slide(R.drawable.slidemononoke, "Princess Mononoke"));
@@ -49,16 +62,17 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         lstSlides.add(new Slide(R.drawable.slidedtenet, "Tenet"));
         lstSlides.add(new Slide(R.drawable.slideavengers, "Avengers: Final"));
 
-        SliderPagerAdapter adapter = new SliderPagerAdapter(this, lstSlides);
-        sliderPager.setAdapter(adapter);
+        sliderAdapter = new SliderPagerAdapter(this, lstSlides);
+        sliderPager.setAdapter(sliderAdapter);
 
         //настройка таймера для слайдера
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new MainActivity.SliderTimer(), 4000, 6000);
+        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
 
         indicator.setupWithViewPager(sliderPager, true);
+    }
 
-
+    private void setupRvMovie() {
         //Настройка RecyclerView Movies и данных для него
         lstMovie = new ArrayList<>();
         lstMovie.add(new Movie("Arch of Triumph", R.drawable.moviearch, R.drawable.john));
@@ -66,11 +80,9 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         lstMovie.add(new Movie("Shawshank Redemption", R.drawable.movieshawshank, R.drawable.john));
         lstMovie.add(new Movie("Yesman", R.drawable.movieyesman, R.drawable.john));
 
-        MovieAdapter movieAdapter = new MovieAdapter(this, lstMovie, this);
+        movieAdapter = new MovieAdapter(this, lstMovie, this);
         rvMovie.setAdapter(movieAdapter);
         rvMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-
     }
 
     @Override

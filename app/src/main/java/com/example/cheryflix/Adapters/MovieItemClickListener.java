@@ -6,7 +6,6 @@ import com.example.cheryflix.Models.Movie;
 
 public interface MovieItemClickListener {
 
-
-    // при клике на любой фильм в приложении, мы вызываем этот интерфейс с этом методом
+    // при клике на любой фильм в приложении, мы вызываем этот интерфейс
     void onMovieClick(Movie movie, ImageView movieImageView);
 }

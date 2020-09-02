@@ -3,18 +3,27 @@ package com.example.cheryflix.UI;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.cheryflix.Adapters.CastAdapter;
+import com.example.cheryflix.Models.Cast;
 import com.example.cheryflix.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
     private ImageView movieThumbnailImg, movieCoverImg;
     private TextView tv_title, movieDescription;
     private FloatingActionButton play_fab;
+    private RecyclerView rvCast;
+    private CastAdapter castAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +32,22 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         iniViews();
 
+        setupRvCast();
+    }
+
+    void setupRvCast() {
+        List<Cast> lstCast = new ArrayList<>();
+        lstCast.add(new Cast("Keanu Reeves", R.drawable.keanu));
+        lstCast.add(new Cast("Halle Berry", R.drawable.halle));
+        lstCast.add(new Cast("Ian McShane", R.drawable.ian));
+        lstCast.add(new Cast("Laurence Fishburne", R.drawable.laurence));
+        lstCast.add(new Cast("Asia Kate Dillon", R.drawable.asia));
+        lstCast.add(new Cast("Mark Dacascos", R.drawable.mark));
+        lstCast.add(new Cast("Lance Reddick", R.drawable.lance));
+
+        castAdapter = new CastAdapter(this, lstCast);
+        rvCast.setAdapter(castAdapter);
+        rvCast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
     void iniViews() {
@@ -32,6 +57,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         int coverResourceId = getIntent().getExtras().getInt("imgCover"); // получаем Extras
 
         play_fab = findViewById(R.id.fab_play);
+        rvCast = findViewById(R.id.rv_cast);
 
         movieThumbnailImg = findViewById(R.id.detail_movie_img);
         Glide.with(this).load(imageResourceId).into(movieThumbnailImg);

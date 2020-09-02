@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.cheryflix.Models.Movie;
 import com.example.cheryflix.R;
 
@@ -42,7 +43,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
         myViewHolder.tvTitle.setText(mData.get(i).getTitle());
-        myViewHolder.imgMovie.setImageResource(mData.get(i).getThumbnail());
+        // обновил после установки Glide
+        //myViewHolder.imgMovie.setImageResource(mData.get(i).getThumbnail());
+        Glide.with(mContext).load(mData.get(i).getThumbnail()).into(myViewHolder.imgMovie);
+
     }
 
     // 2 получаем количество данных с List`а
