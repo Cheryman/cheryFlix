@@ -1,6 +1,5 @@
-package com.example.cheryflix;
+package com.example.cheryflix.Adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.cheryflix.Models.Movie;
+import com.example.cheryflix.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.cheryflix;
+package com.example.cheryflix.UI;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -10,6 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.cheryflix.Models.Movie;
+import com.example.cheryflix.Adapters.MovieAdapter;
+import com.example.cheryflix.Adapters.MovieItemClickListener;
+import com.example.cheryflix.R;
+import com.example.cheryflix.Models.Slide;
+import com.example.cheryflix.Adapters.SliderPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +61,10 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
 
         //Настройка RecyclerView Movies и данных для него
         lstMovie = new ArrayList<>();
-        lstMovie.add(new Movie("Arch of Triumph", R.drawable.moviearch));
-        lstMovie.add(new Movie("Up", R.drawable.movieup));
-        lstMovie.add(new Movie("Shawshank Redemption", R.drawable.movieshawshank));
-        lstMovie.add(new Movie("Yesman", R.drawable.movieyesman));
+        lstMovie.add(new Movie("Arch of Triumph", R.drawable.moviearch, R.drawable.john));
+        lstMovie.add(new Movie("Up", R.drawable.movieup, R.drawable.john));
+        lstMovie.add(new Movie("Shawshank Redemption", R.drawable.movieshawshank, R.drawable.john));
+        lstMovie.add(new Movie("Yesman", R.drawable.movieyesman, R.drawable.john));
 
         MovieAdapter movieAdapter = new MovieAdapter(this, lstMovie, this);
         rvMovie.setAdapter(movieAdapter);
@@ -74,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         Intent detailActivityIntent = new Intent(this, MovieDetailActivity.class);
         detailActivityIntent.putExtra("title", movie.getTitle());
         detailActivityIntent.putExtra("imgUrl", movie.getThumbnail());
+        detailActivityIntent.putExtra("imgCover", movie.getCoverImg());
 
-        Toast.makeText(this, "click performed", Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(this, "click performed", Toast.LENGTH_SHORT).show();
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                 MainActivity.this, movieImageView, "sharedName");

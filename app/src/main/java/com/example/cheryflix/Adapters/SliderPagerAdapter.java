@@ -1,4 +1,4 @@
-package com.example.cheryflix;
+package com.example.cheryflix.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.cheryflix.Models.Slide;
+import com.example.cheryflix.R;
 
 import java.util.List;
 

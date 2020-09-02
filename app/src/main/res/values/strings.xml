@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">cheryFlix</string>
-</resources>
+    <string name="default_movie_description">42 is a 2013 American biographical sports film written and directed by Brian Helgeland about the racial integration of American professional baseball by player Jackie Robinson, who wore jersey number 42 through his Major League career.</string>
+    </resources>

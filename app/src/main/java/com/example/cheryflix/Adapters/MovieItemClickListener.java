@@ -1,6 +1,8 @@
-package com.example.cheryflix;
+package com.example.cheryflix.Adapters;
 
 import android.widget.ImageView;
+
+import com.example.cheryflix.Models.Movie;
 
 public interface MovieItemClickListener {
 

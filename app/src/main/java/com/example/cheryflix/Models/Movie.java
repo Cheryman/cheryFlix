@@ -1,4 +1,4 @@
-package com.example.cheryflix;
+package com.example.cheryflix.Models;
 
 public class Movie {
 
@@ -7,6 +7,13 @@ public class Movie {
     private int thumbnail;
     private String studio;
     private String rating;
+    private int coverImg;
+
+    public Movie(String title, int thumbnail, int coverImg) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.coverImg = coverImg;
+    }
 
     public Movie(String title, int thumbnail) {
         this.title = title;
@@ -59,5 +66,13 @@ public class Movie {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public int getCoverImg() {
+        return coverImg;
+    }
+
+    public void setCoverImg(int coverImg) {
+        this.coverImg = coverImg;
     }
 }

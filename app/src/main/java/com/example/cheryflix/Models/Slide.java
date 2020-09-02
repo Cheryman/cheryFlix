@@ -1,4 +1,4 @@
-package com.example.cheryflix;
+package com.example.cheryflix.Models;
 
 public class Slide {
 
