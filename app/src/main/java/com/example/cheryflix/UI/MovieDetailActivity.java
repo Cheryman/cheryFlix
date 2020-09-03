@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.example.cheryflix.Adapters.CastAdapter;
 import com.example.cheryflix.Models.Cast;
 import com.example.cheryflix.R;
+import com.example.cheryflix.utils.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,16 +37,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     void setupRvCast() {
-        List<Cast> lstCast = new ArrayList<>();
-        lstCast.add(new Cast("Keanu Reeves", R.drawable.keanu));
-        lstCast.add(new Cast("Halle Berry", R.drawable.halle));
-        lstCast.add(new Cast("Ian McShane", R.drawable.ian));
-        lstCast.add(new Cast("Laurence Fishburne", R.drawable.laurence));
-        lstCast.add(new Cast("Asia Kate Dillon", R.drawable.asia));
-        lstCast.add(new Cast("Mark Dacascos", R.drawable.mark));
-        lstCast.add(new Cast("Lance Reddick", R.drawable.lance));
 
-        castAdapter = new CastAdapter(this, lstCast);
+        castAdapter = new CastAdapter(this, DataSource.getCast());
         rvCast.setAdapter(castAdapter);
         rvCast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }

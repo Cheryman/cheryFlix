@@ -1,5 +1,6 @@
 package com.example.cheryflix.utils;
 
+import com.example.cheryflix.Models.Cast;
 import com.example.cheryflix.Models.Movie;
 import com.example.cheryflix.Models.Slide;
 import com.example.cheryflix.R;
@@ -40,5 +41,19 @@ public class DataSource {
         lstMovie.add(new Movie("Arch of Triumph", R.drawable.moviearch, R.drawable.john));
 
         return lstMovie;
+    }
+
+    public static List<Cast> getCast(){
+
+        List<Cast> lstCast = new ArrayList<>();
+        lstCast.add(new Cast("Keanu Reeves", R.drawable.keanu));
+        lstCast.add(new Cast("Halle Berry", R.drawable.halle));
+        lstCast.add(new Cast("Ian McShane", R.drawable.ian));
+        lstCast.add(new Cast("Laurence Fishburne", R.drawable.laurence));
+        lstCast.add(new Cast("Asia Kate Dillon", R.drawable.asia));
+        lstCast.add(new Cast("Mark Dacascos", R.drawable.mark));
+        lstCast.add(new Cast("Lance Reddick", R.drawable.lance));
+
+        return lstCast;
     }
 }
