@@ -17,6 +17,7 @@ import com.example.cheryflix.Adapters.MovieItemClickListener;
 import com.example.cheryflix.R;
 import com.example.cheryflix.Models.Slide;
 import com.example.cheryflix.Adapters.SliderPagerAdapter;
+import com.example.cheryflix.utils.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,10 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements MovieItemClickListener {
 
-    List<Slide> lstSlides;
-    List<Movie> lstMovie;
 
     private ViewPager sliderPager;
     private TabLayout indicator;
-    private RecyclerView rvMovie;
+    private RecyclerView rvMovie, rvWeekMovie;
 
     private SliderPagerAdapter sliderAdapter;
     private MovieAdapter movieAdapter;
@@ -46,23 +45,27 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         setupSlider();
 
         setupRvMovie();
+
+        setupRvWeekMovie();
+    }
+
+    private void setupRvWeekMovie() {
+
+        movieAdapter = new MovieAdapter(this, DataSource.getWeekMovies(),this);
+        rvWeekMovie.setAdapter(movieAdapter);
+        rvWeekMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
     private void iniViews() {
         sliderPager = findViewById(R.id.slider_pager);
         indicator = findViewById(R.id.indicator);
         rvMovie = findViewById(R.id.rv_movies);
+        rvWeekMovie = findViewById(R.id.rv_movies_week);
     }
 
     private void setupSlider() {
-        // данные для слайдера
-        lstSlides = new ArrayList<>();
-        lstSlides.add(new Slide(R.drawable.slidemononoke, "Princess Mononoke"));
-        lstSlides.add(new Slide(R.drawable.slideporko, "Porko Rosso"));
-        lstSlides.add(new Slide(R.drawable.slidedtenet, "Tenet"));
-        lstSlides.add(new Slide(R.drawable.slideavengers, "Avengers: Final"));
 
-        sliderAdapter = new SliderPagerAdapter(this, lstSlides);
+        sliderAdapter = new SliderPagerAdapter(this, DataSource.getSlides());
         sliderPager.setAdapter(sliderAdapter);
 
         //настройка таймера для слайдера
@@ -73,14 +76,9 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     private void setupRvMovie() {
-        //Настройка RecyclerView Movies и данных для него
-        lstMovie = new ArrayList<>();
-        lstMovie.add(new Movie("Arch of Triumph", R.drawable.moviearch, R.drawable.john));
-        lstMovie.add(new Movie("Up", R.drawable.movieup, R.drawable.john));
-        lstMovie.add(new Movie("Shawshank Redemption", R.drawable.movieshawshank, R.drawable.john));
-        lstMovie.add(new Movie("Yesman", R.drawable.movieyesman, R.drawable.john));
+        //Настройка RecyclerView Movies и инициализация данных для него из DataSource
 
-        movieAdapter = new MovieAdapter(this, lstMovie, this);
+        movieAdapter = new MovieAdapter(this, DataSource.getPopularMovies(), this);
         rvMovie.setAdapter(movieAdapter);
         rvMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
             MainActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (sliderPager.getCurrentItem() < lstSlides.size() - 1) {
+                    if (sliderPager.getCurrentItem() < DataSource.getSlides().size() - 1) {
                         sliderPager.setCurrentItem(sliderPager.getCurrentItem() + 1);
                     } else {
                         sliderPager.setCurrentItem(0);
